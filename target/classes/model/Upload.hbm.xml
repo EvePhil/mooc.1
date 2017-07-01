@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 2017-7-1 16:01:01 by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="rua" dynamic-insert="false" dynamic-update="false" mutable="true" name="model.Upload" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="upload">
+        <id name="resourcesId" type="int">
+            <column name="Resources_id"/>
+            <generator class="assigned"/>
+        </id>
+        <timestamp column="Timestamp" generated="never" name="timestamp" source="vm" unsaved-value="null"/>
+        <property generated="never" lazy="false" name="title" optimistic-lock="true" type="string" unique="false">
+            <column name="Title" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="desc" optimistic-lock="true" type="binary" unique="false">
+            <column name="Desc"/>
+        </property>
+        <property generated="never" lazy="false" name="teacherId" optimistic-lock="true" type="int" unique="false">
+            <column name="Teacher_id" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

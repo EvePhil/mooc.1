@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link type="text/css" rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+<div class="header navbar-fixed">
+    <nav>
+        <div class="nav-wrapper cyan fixed">
+            <a href="#!" class="brand-logo">SEPS</a>
+            <ul class="right hide-on-med-and-down">
+                <!-- Dropdown Trigger -->
+                <li><a class="dropdown-button" href="#!" >鐧� 鍑�</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="content">
+    <ul id="nav-mobile" class="side-nav fixed" style="width: 250px;transform: translateX(0%);">
+        <li id="courses" class="side-bar"><a class="waves-effect waves-teal" href="/mooc/index.html">璇剧▼绠＄悊</a></li>
+        <li id="sources" class="side-bar"><a class="waves-effect waves-teal" href="/mooc/tc-src.html">璧勬簮绠＄悊</a></li>
+        <li id="homework" class="side-bar baractive"><a class="waves-effect waves-teal" href="/mooc/tc-hw.html">浣滀笟绠＄悊</a></li>
+        <li id="teamwork " class="side-bar"><a class="waves-effect waves-teal" href="/mooc/tc-tm.html">鍥㈤槦绠＄悊</a></li>
+        <li id="grade" class="side-bar"><a class="waves-effect waves-teal" href="#">鎴愮哗鐧昏</a></li>
+        <li id="signin" class="side-bar"><a class="waves-effect waves-teal" href="#">绛惧埌缁熻</a></li>
+        <li id="olddata" class="side-bar"><a class="waves-effect waves-teal" href="#">浠ュ線鏁版嵁</a></li>
+        <li id="communication" class="side-bar"><a class="waves-effect waves-teal" href="#">甯堢敓浜ゆ祦</a></li>
+    </ul>
+</div>
+<main>
+    <div class=" row right-content">
+        <div class="container1">
+            <div class="toolbox">
+                <a class="waves-effect waves-light btn choosesrc">鍏ㄩ��</a>
+                <a class="waves-effect waves-light btn choosenot">鍙嶉��</a>
+                <a class="waves-effect waves-light btn publishsrc" href="#modal1">鍙戝竷鏂颁綔涓�</a>
+                <a class="waves-effect waves-light btn downloasrc">鎵归噺涓嬭浇</a>
+                <a class="waves-effect waves-light btn deletesrc red hw-del">鍒犻櫎</a>
+
+
+            </div>
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input  id="hwheadline" type="text" class="validate">
+                                    <label for="hwheadline">鏍囬</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input  type="text" id="hwcontent" class="validate">
+                                    <label for="hwcontent">鏂囧瓧璇存槑</label>
+                                </div>
+                            </div>
+                            <div class="file-field input-field">
+                                <div class="btn">
+                                    <span>鏂囦欢</span>
+                                    <input type="file" multiple>
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                                </div>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hw-public">鍙戝竷</a>
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">鍙栨秷</a>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+
+                <div class="col s12 m12">
+                    <ul class="collapsible popout show-tw" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header">
+                                <div class="col s1 m1 selectDown">
+                                    <form>
+                                        <p>
+                                            <input type="checkbox" name="checkbox" class="filled-in" id="src1">
+                                            <label for="src1"></label>
+                                        </p>
+                                    </form>
+                                </div>
+                                <i class="material-icons">filter_drama</i>绗竴娆′綔涓�
+                                <i class="material-icons text-black right">play_for_work</i>
+                            </div>
+                            <div class="collapsible-body">
+                                <span>浣滀笟鎻忚堪鏄敱鍗曚釜浣滀笟銆佸凡鍚姩鐨勪换鍔℃垨 WTO 涓绘搷浣滀互鍙婂唴閮ㄥ厛琛屼綔涓氬噯澶囧拰/鎴栨墜鍔ㄥ噯澶囨搷浣滄瀯鎴愮殑搴旂敤绋嬪簭銆備綔涓氭弿杩扮殑鍚嶇О灏嗚嚜鍔ㄨ缃负涓庝富鎿嶄綔鐩稿悓鐨勫悕绉般��
+濡傛灉搴旂敤绋嬪簭婊¤冻杩欎簺闄愬埗锛岄偅涔堝彲浠ヤ娇鐢ㄢ�滀綔涓氭弿杩扳�濋潰鏉匡紝璇ラ潰鏉块�氳繃瀵规鍦ㄥ垱寤虹殑搴旂敤绋嬪簭杩涜涓�浜涘亣璁撅紝灏嗏�滃簲鐢ㄧ▼搴忔弿杩扳�濋潰鏉跨殑澶у鏁板姛鑳藉帇缂╁埌涓�涓潰鏉裤��
+閫氳繃鍦ㄤ富鑿滃崟涓緭鍏� 1.8.2 鏉ユ樉绀衡�滃垱寤轰綔涓氣�濋潰鏉裤�傝闈㈡澘鏄剧ず鏉ヨ嚜鍒涘缓鎴栦慨鏀圭殑鍏堝墠浣滀笟鎻忚堪鐨勮缃��</span>
+                                <ul class="collection">
+                                    <li class="collection-item">鍥㈤槦#1</li>
+                                    <li class="collection-item">鍥㈤槦#2</li>
+                                    <li class="collection-item">鍥㈤槦#3</li>
+                                    <li class="collection-item">鍥㈤槦#4</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">
+                                <div class="col s1 m1 selectDown">
+                                    <form>
+                                        <p>
+                                            <input type="checkbox" name="checkbox" class="filled-in" id="src2">
+                                            <label for="src2"></label>
+                                        </p>
+                                    </form>
+                                </div>
+                                <i class="material-icons">place</i>绗簩娆′綔涓�
+                                <i class="material-icons text-black right">play_for_work</i>
+
+                            </div>
+                            <div class="collapsible-body">
+                                <span>浣滀笟鎻忚堪鏄敱鍗曚釜浣滀笟銆佸凡鍚姩鐨勪换鍔℃垨 WTO 涓绘搷浣滀互鍙婂唴閮ㄥ厛琛屼綔涓氬噯澶囧拰/鎴栨墜鍔ㄥ噯澶囨搷浣滄瀯鎴愮殑搴旂敤绋嬪簭銆備綔涓氭弿杩扮殑鍚嶇О灏嗚嚜鍔ㄨ缃负涓庝富鎿嶄綔鐩稿悓鐨勫悕绉般��
+濡傛灉搴旂敤绋嬪簭婊¤冻杩欎簺闄愬埗锛岄偅涔堝彲浠ヤ娇鐢ㄢ�滀綔涓氭弿杩扳�濋潰鏉匡紝璇ラ潰鏉块�氳繃瀵规鍦ㄥ垱寤虹殑搴旂敤绋嬪簭杩涜涓�浜涘亣璁撅紝灏嗏�滃簲鐢ㄧ▼搴忔弿杩扳�濋潰鏉跨殑澶у鏁板姛鑳藉帇缂╁埌涓�涓潰鏉裤��
+閫氳繃鍦ㄤ富鑿滃崟涓緭鍏� 1.8.2 鏉ユ樉绀衡�滃垱寤轰綔涓氣�濋潰鏉裤�傝闈㈡澘鏄剧ず鏉ヨ嚜鍒涘缓鎴栦慨鏀圭殑鍏堝墠浣滀笟鎻忚堪鐨勮缃��</span>
+                                <ul class="collection">
+                                    <li class="collection-item">鍥㈤槦#1</li>
+                                    <li class="collection-item">鍥㈤槦#2</li>
+                                    <li class="collection-item">鍥㈤槦#3</li>
+                                    <li class="collection-item">鍥㈤槦#4</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="collapsible-header">
+                                <div class="col s1 m1 selectDown">
+                                    <form>
+                                        <p>
+                                            <input type="checkbox" name="checkbox" class="filled-in" id="src3">
+                                            <label for="src3"></label>
+                                        </p>
+                                    </form>
+                                </div>
+                                <i class="material-icons">whatshot</i>绗笁娆′綔涓�
+                                <i class="material-icons text-black right">play_for_work</i>
+
+                            </div>
+                            <div class="collapsible-body"><span>浣滀笟鎻忚堪鏄敱鍗曚釜浣滀笟銆佸凡鍚姩鐨勪换鍔℃垨 WTO 涓绘搷浣滀互鍙婂唴閮ㄥ厛琛屼綔涓氬噯澶囧拰/鎴栨墜鍔ㄥ噯澶囨搷浣滄瀯鎴愮殑搴旂敤绋嬪簭銆備綔涓氭弿杩扮殑鍚嶇О灏嗚嚜鍔ㄨ缃负涓庝富鎿嶄綔鐩稿悓鐨勫悕绉般��
+濡傛灉搴旂敤绋嬪簭婊¤冻杩欎簺闄愬埗锛岄偅涔堝彲浠ヤ娇鐢ㄢ�滀綔涓氭弿杩扳�濋潰鏉匡紝璇ラ潰鏉块�氳繃瀵规鍦ㄥ垱寤虹殑搴旂敤绋嬪簭杩涜涓�浜涘亣璁撅紝灏嗏�滃簲鐢ㄧ▼搴忔弿杩扳�濋潰鏉跨殑澶у鏁板姛鑳藉帇缂╁埌涓�涓潰鏉裤��
+閫氳繃鍦ㄤ富鑿滃崟涓緭鍏� 1.8.2 鏉ユ樉绀衡�滃垱寤轰綔涓氣�濋潰鏉裤�傝闈㈡澘鏄剧ず鏉ヨ嚜鍒涘缓鎴栦慨鏀圭殑鍏堝墠浣滀笟鎻忚堪鐨勮缃��</span>
+                                <ul class="collection">
+                                    <li class="collection-item">鍥㈤槦#1</li>
+                                    <li class="collection-item">鍥㈤槦#2</li>
+                                    <li class="collection-item">鍥㈤槦#3</li>
+                                    <li class="collection-item">鍥㈤槦#4</li>
+                                </ul></div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!--Import jQuery before materialize.js-->
+
+</body>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+</html>

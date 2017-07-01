@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 2017-7-1 16:01:01 by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="rua" dynamic-insert="false" dynamic-update="false" mutable="true" name="model.Course" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="course">
+        <id name="id" type="int">
+            <column name="ID"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="name" optimistic-lock="true" type="string" unique="false">
+            <column name="Name"/>
+        </property>
+        <property generated="never" lazy="false" name="teacherId" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="Teacher_id"/>
+        </property>
+        <property generated="never" lazy="false" name="startTime" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="19" name="Start_time"/>
+        </property>
+        <property generated="never" lazy="false" name="endTime" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="19" name="End_time"/>
+        </property>
+        <property generated="never" lazy="false" name="status" optimistic-lock="true" type="byte" unique="false">
+            <column name="Status" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>实体及实体关系标注工具</title>
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="js/biaozhu.js"></script>
+		<link rel="stylesheet" href="css/index.css" />
+		<Link Rel="SHORTCUT ICON" href="http://download.easyicon.net/png/1202904/32/">
+	</head>
+	<body>
+		<div class="header">
+			<p>实体及实体关系标注工具</p>
+			<a href="/Label/openfileLabel.html" class="option">实体标注</a>
+			<a href="/Label/openfileRelation.html" class="option">关系标注</a>
+			<a class="login" href="/Label/login.html">登录</a>
+			<a href="/Label/register.html">注册</a>
+		</div>
+		<div class="firstCol">
+			<div class="model">
+				<div class="title">
+					<p>标签集</p>
+					<input id="del" class="delLab" type="button"/>
+				</div>
+				<div class="modelButton">
+					<input id="/i" class="button" type="button" value="疾病" style="background: #7E3D76;"></input>
+					<input id="/s" class="button" type="button" value="症状" style="background: red;"></input>
+					<input id="/e" class="button" type="button" value="病因" style="background: green;"></input>
+					<input id="/c" class="button" type="button" value="患者" style="background: blue;"></input>
+					<input id="/d" class="button" type="button" value="医生" style="background: yellow;"></input>	
+
+				</div>
+				<div class="title">
+					<p>自定义标签</p>
+				</div>
+				<div class="appendModel">
+					<div class="selector">
+						<ul>
+							<li class="append">
+								<label>颜 色</label>
+								<input class="selectColor" type="color" />
+							</li>
+							<li class="append">
+								<label>内 容</label>
+								<input class="selectText" type="text" />
+							</li>
+							<li class="append">
+								<label>符 号</label>
+								<input class="selectId" type="text" />
+							</li>
+						</ul>
+					</div>
+					<div class="confirmModel">
+						<input class="comfirm" type="button" value="添加标签"/>
+						<input class="delete" type="button" value="删除标签"/>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="text">
+				<div class="title">
+					<p>标注文本</p>
+				</div>
+				<div id="article" class="article">
+					<p class="message">近年来，<span class="/i" lab="0" style="background: rgb(126, 61, 118);">呵呵/i</span>随着大数据相关的各种技术的迅速发展和普及，
+					我们已经生活在了一个大数据时代，本项目主要针对商业方面的大数据的采集与分析。
+					首先使用wifi探针来收集商业门店周围的手机的MAC地址、
+					出现时间及地点、与探针距离等数据，再将数据定时传到服务端，
+					同时对数据进行初步处理，再通过storm分布式系统进行实时分析计算，
+					通过hadoop进行离线分析计算，最后将分析过的数据通过echarts API可视化地从web前端进行展示。
+					商家可以直观地根据分析结果调整自己的商业策略，制定活动方案，
+					从而增加商家店铺的吸引力和营销量。
+					</p>
+				</div>
+			</div>
+			<div class="link">
+				<div class="title">
+					<p>相关搜索</p>
+				</div>
+				<div class="search">
+					<ul>
+						<li><input id="base1" class="base" type="button" value="Wiki"></input></li>
+						<li><input class="base" type="button" value="CBDB"></input></li>
+						<li><input class="base" type="button" value="TGAZ"></input></li>
+						<li><input class="base" type="button" value="Zdict"></input></li>
+					</ul>	
+					<hr />
+					<img class="searchIco" src="http://www.easyicon.net/api/resizeApi.php?id=1191708&size=32">
+					<input class="searchCont" type="text" placeholder="选择相关知识库"></input>
+					<input class="searchConfirm" type="button" value="搜索"></input>
+				</div>
+				<div class="title">
+					<p>参考链接</p>
+				</div>
+				<div class="links">
+					<ul>
+						<li><a class="outLink" href="www.baidu.com">www.baidu.com</a></li>
+						<li><a class="outLink" href="www.baidu.com">www.baidu.com</a></li>
+						<li><a class="outLink" href="www.baidu.com">www.baidu.com</a></li>
+						<li><a class="outLink" href="www.baidu.com">www.baidu.com</a></li>
+					</ul>					
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="footer">
+			<p>标注工具 Copyright © all reserved</p>
+		</div>
+	</body>
+</html>

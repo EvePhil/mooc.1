@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-6-26 15:19:28 by Hibernate Tools 5.2.1.Final -->
+<hibernate-mapping>
+    <class name="model.User" table="user" catalog="rua" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <property name="password" type="string">
+            <column name="password" />
+        </property>
+        <property name="character" type="string">
+            <column name="character" />
+        </property>
+    </class>
+</hibernate-mapping>
