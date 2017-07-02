@@ -1,6 +1,7 @@
 package com.rua.usercontroller;
 
 import java.io.BufferedInputStream;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -62,6 +64,7 @@ import net.sf.jxls.transformer.XLSTransformer;
 
 @Controller
 public class xlsController {
+	String prevUserFile="", prevGradeFile="";
 	/*
 	@RequestMapping(value = "/uploadSRC", method = RequestMethod.POST)
 	public String uploadSRC(ModelMap model,@RequestParam("title") String title,@RequestParam("content") String content, @RequestParam("file") MultipartFile[] files, HttpServletRequest request,
@@ -121,12 +124,13 @@ public class xlsController {
 
 		//exportGradeXls("E:\\workspace\\mooc.1\\z1.xls",getAllGrade());
 		//importGradeXls("E:\\workspace\\mooc.1\\i1.xls");
+		
 	}
 	@RequestMapping(value="/exportUser",method=RequestMethod.GET)
 	public ResponseEntity<byte[]> exportUserXls(HttpServletRequest request,HttpServletResponse response){//String path,List<User> list
 		try {
 		List<User> list=getAllUser();
-		HttpHeaders headers = new HttpHeaders();   
+		HttpHeaders headers = new HttpHeaders();
 		String path="E:\\workspace\\mooc.1\\instance.xls";
 		//List<User> user = new ArrayList<User>();
         Map<String,Object> beans = new HashMap<String,Object>();
@@ -181,6 +185,12 @@ public class xlsController {
 			e.printStackTrace();
 		} 
 
+	}
+	
+	@RequestMapping(value="/testUp")
+	public String up(Model model)
+	{
+		return null;
 	}
 	
 	@RequestMapping(value="/team-stu")
@@ -243,6 +253,12 @@ public class xlsController {
 		return null;
 	}
 	
+	@RequestMapping(value="/dn-account")
+	public String account(Model model)
+	{
+		return null;
+	}
+	
 	
 	
 	public List<User> getAllUser()
@@ -301,11 +317,15 @@ public class xlsController {
 		return results;
 	}
 	
-	public void importUserXls(ModelMap model, @RequestParam("file") MultipartFile files, HttpServletRequest request,HttpServletResponse response){//String path
-		String path=request.getParameter("path");
+	@RequestMapping(value="/uploadUserXls",method=RequestMethod.POST)
+	public @ResponseBody String importUserXls(MultipartFile file){//String path
+		String path="E:\\workspace\\mooc.1\\"+file.getOriginalFilename();
 		try{
-	        MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;  
-	        MultipartFile file1 = multipartRequest.getFile("iconImg");
+			File tmp = new File(path);
+			if(tmp.exists()){
+				tmp.delete();
+			}
+			file.transferTo(new File(path));
 			HSSFWorkbook source=new HSSFWorkbook(new FileInputStream(path));
 			HSSFSheet sheet = source.getSheetAt(0);
 			 int rows = sheet.getPhysicalNumberOfRows();
@@ -318,6 +338,7 @@ public class xlsController {
                          //获取到Excel文件中的所有的列­
                          int cells = row.getPhysicalNumberOfCells();
                          String value = "";
+                         System.out.println(cells);//根据表格格式确定数据
                         for (int j = 0; j < cells; j++) {
                                //获取到列的值­
                                HSSFCell cell = row.getCell(j);
@@ -333,21 +354,32 @@ public class xlsController {
                                                  value += cell.getStringCellValue() + ",";
                                            break;
                                            default:
-                                                 value += "0";
+                                        	   value += cell.getStringCellValue() + ",";
                                            break;
                                }
                          }      
                    }
                    String[] val = value.split(",");
-                   System.out.println(val[0]+" "+val[1]+" "+val[2]+" "+val[3]);//根据表格格式确定数据
+                   System.out.println(value);//根据表格格式确定数据
  //                  saveUser(val[0],val[1],val[2],val[3],val[4]);
+                   //System.out.println(val[0]+" "+val[1]+" "+val[2]+" "+val[3]+" "+val[4]);//根据表格格式确定数据
+                   if(val[2].equals("男")){
+                	   val[2]="1";
+                   }else if(val[2].equals("女")){
+                	   val[2]="0";
+                   }
                    
+                   if(val[4].equals("教师")){
+                	   val[4]="2";
+                   }else if(val[4].equals("管理员")){
+                	   val[4]="1";
+                   }else if(val[4].equals("学生")){
+                	   val[4]="3";}
+                   System.out.println(val[0]+" "+val[1]+" "+val[2]+" "+val[3]+" "+val[4]);//根据表格格式确定数据
                    Class.forName("com.mysql.jdbc.Driver");
-                       
                    String url="jdbc:mysql://localhost:3306/rua";    //JDBC的URL    
                    java.sql.Connection conn;
                    conn = DriverManager.getConnection(url, "root", "");
-
                    java.sql.Statement stmt = conn.createStatement(); //创建Statement对象
                    System.out.println("成功连接到数据库！");
 
@@ -356,15 +388,26 @@ public class xlsController {
                    stmt.executeUpdate(sql);//创建数据对象
                    System.out.println("****************************************");
                        stmt.close();
-                       conn.close();
+                       conn.close();      
                    }
 		}
-             }catch(Exception e ){e.printStackTrace();}
+             }catch(Exception e ){
+            	 e.printStackTrace();
+            	 return "{name:"+prevUserFile+"}";
+             }
+		prevUserFile=file.getOriginalFilename();
+		return "{name:"+prevGradeFile+"}";
 	}
 	
-	public void importGradeXls(HttpServletRequest request,HttpServletResponse response){//String path
-		String path=request.getParameter("path");
+	@RequestMapping(value="/uploadGradeXls",method=RequestMethod.POST)
+	public @ResponseBody String importGradeXls(MultipartFile file){//String path
+		String path="E:\\workspace\\mooc.1\\"+file.getOriginalFilename();
 		try{
+			File tmp = new File(path);
+			if(tmp.exists()){
+				tmp.delete();
+			}
+			file.transferTo(new File(path));
 			HSSFWorkbook source=new HSSFWorkbook(new FileInputStream(path));
 			HSSFSheet sheet = source.getSheetAt(0);
 			 int rows = sheet.getPhysicalNumberOfRows();
@@ -415,9 +458,15 @@ public class xlsController {
                    System.out.println("****************************************");
                        stmt.close();
                        conn.close();
+                       prevGradeFile=file.getOriginalFilename();
                    }
 		}
-             }catch(Exception e ){e.printStackTrace();}
+             }catch(Exception e ){
+            	 e.printStackTrace();
+            	 return "{name:"+prevGradeFile+"}";
+             }
+		prevGradeFile=file.getOriginalFilename();
+		return "{name:"+prevGradeFile+"}";
 	}
 	
 	/*public void saveUser(String Id ,String pw,String Character,String gender,String name)
