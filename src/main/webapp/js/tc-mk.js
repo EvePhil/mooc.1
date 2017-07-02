@@ -5,7 +5,11 @@
 $(function () {
     var url = {
         getGrade: "/mooc/getGradeG",
-        postGrade: "/mooc/postGradeG"
+        postGrade: "/mooc/postGradeG",
+        	getTemp:"/mooc/exportGradeTemplate",
+            getGradexls:"/mooc/exportGrade",
+            postGrade:"/mooc/importGrade"
+
     };
     var grade = [{
         ID: "2",
@@ -107,4 +111,15 @@ $(function () {
         }
     })
 
+    $('.down-temp').click(function () {
+        $.get(url.getTemp,function () {
+            Materialize.toast('模板下载成功', 4000);
+        })
+    });
+    $('.down-grade').click(function () {
+        $.get(url.getGradexls,function () {
+            Materialize.toast('成绩单下载成功', 4000);
+        })
+    });
+    
 })

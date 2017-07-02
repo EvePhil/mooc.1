@@ -49,13 +49,13 @@
         <div class="col m12 ">
             <div class="card cyan lighten-5">
                 <div class="card-content">
-                    <span class="card-title">已导入的账户</span>
-                    <a id="imported-account-file">xxxx.xls</a>
+                    <span class="card-title disable">已导入的账户</span>
+                    <a id="imported-account-file" href="/mooc/exportUser">xxxx.xls</a>
                     <div class="card-dividing-line"></div>
                     <span class="card-title">上传/覆盖用户账号<a href="doc/账户导入模板.xls" id="template-download">账户导入模板下载</a></span>
-                    <form method="post" action="/mooc/xxxxx" enctype="multipart/form-data">
+                    <form action="/mooc/uploadUserXls" method="post" enctype="multipart/form-data">
                         <div class="file-field input-field">
-                            <div class="btn cyan"d>
+                            <div class="btn cyan">
                                 <span>文件</span>
                                 <input type="file" name="file">
                             </div>
@@ -72,6 +72,6 @@
 </main>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
-<script type="text/javascript" src="js/"></script>
+<script type="text/javascript" src="js/dn-account.js"></script>
 </body>
 </html>

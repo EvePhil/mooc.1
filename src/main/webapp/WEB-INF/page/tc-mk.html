@@ -20,41 +20,65 @@
             <a href="#!" class="brand-logo">SEPS</a>
             <ul class="right hide-on-med-and-down">
                 <!-- Dropdown Trigger -->
-                <li><a class="dropdown-button" href="#!" >ç™» å‡º</a></li>
+                <li><a class="dropdown-button" href="#!" >µÇ ³ö</a></li>
             </ul>
         </div>
     </nav>
 </div>
 <div class="content">
-    <ul id="nav-mobile" class="side-nav fixed" style="width: 250px;transform: translateX(0%);">
-        <li id="courses" class="side-bar"><a class="waves-effect waves-teal" href="/index.html">è¯¾ç¨‹ç®¡ç†</a></li>
-        <li id="sources" class="side-bar"><a class="waves-effect waves-teal" href="/tc-src.html">èµ„æºç®¡ç†</a></li>
-        <li id="homework" class="side-bar"><a class="waves-effect waves-teal" href="/tc-hw.html">ä½œä¸šç®¡ç†</a></li>
-        <li id="teamwork " class="side-bar"><a class="waves-effect waves-teal" href="/tc-tm.html">å›¢é˜Ÿç®¡ç†</a>
+    <ul id="nav-mobile" class="side-nav fixed z-depth-3" style="width: 250px;transform: translateX(0%);">
+        <li id="courses" class="side-bar"><a class="waves-effect waves-teal" href="/index.html"><i class="material-icons">date_range</i>¿Î³Ì¹ÜÀí</a></li>
+        <li id="sources" class="side-bar"><a class="waves-effect waves-teal" href="/tc-src.html"><i class="material-icons">theaters</i>×ÊÔ´¹ÜÀí</a></li>
+        <li id="homework" class="side-bar"><a class="waves-effect waves-teal" href="/tc-hw.html"><i class="material-icons">description</i>×÷Òµ¹ÜÀí</a></li>
+        <li id="teamwork " class="side-bar"><a class="waves-effect waves-teal" href="/tc-tm.html"><i class="material-icons">group</i>ÍÅ¶Ó¹ÜÀí</a>
         </li>
-        <li id="grade" class="side-bar baractive"><a class="waves-effect waves-teal" href="/tc-mk.html">æˆç»©ç™»è®°</a></li>
-        <li id="signin" class="side-bar"><a class="waves-effect waves-teal" href="/tc-ci.html">ç­¾åˆ°ç»Ÿè®¡</a></li>
-        <li id="olddata" class="side-bar"><a class="waves-effect waves-teal" href="#">ä»¥å¾€æ•°æ®</a></li>
-        <li id="communication" class="side-bar"><a class="waves-effect waves-teal" href="#">å¸ˆç”Ÿäº¤æµ</a></li>
+        <li id="grade" class="side-bar baractive z-depth-3"><a class="waves-effect waves-teal" href="/tc-mk.html"><i class="material-icons">spellcheck</i>³É¼¨µÇ¼Ç</a></li>
+        <li id="signin" class="side-bar"><a class="waves-effect waves-teal" href="/tc-ci.html"><i class="material-icons">assessment</i>Ç©µ½Í³¼Æ</a></li>
+        <li id="olddata" class="side-bar"><a class="waves-effect waves-teal" href="/tc-od.html"><i class="material-icons">find_replace</i>ÒÔÍùÊý¾Ý</a></li>
+        <li id="communication" class="side-bar"><a class="waves-effect waves-teal" href="#"><i class="material-icons">chat</i>Ê¦Éú½»Á÷</a></li>
     </ul>
 </div>
 <main>
     <div class=" row right-content">
         <div class="toolbox">
-            <a class="waves-effect waves-light btn">ä¸‹è½½æ‰“åˆ†æ¨¡æ¿</a>
-            <a class="waves-effect waves-light btn">ä¸Šä¼ æ‰¹é‡æ‰“åˆ†</a>
-            <!--<a class="waves-effect waves-light btn right red grade-edit">æäº¤ä¿®æ”¹</a>-->
-            <a class="waves-effect waves-light btn right">ä¸‹è½½æˆç»©å•</a>
+            <a class="waves-effect waves-light btn down-temp">ÏÂÔØ´ò·ÖÄ£°å</a>
+            <a class="waves-effect waves-light btn " href="#modal1">ÉÏ´«ÅúÁ¿´ò·Ö</a>
+            <!--<a class="waves-effect waves-light btn right red grade-edit">Ìá½»ÐÞ¸Ä</a>-->
+            <a class="waves-effect waves-light btn right down-grade">ÏÂÔØ³É¼¨µ¥</a>
 
         </div>
+
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <form action="/mooc/uploadGradeXls" method="post" enctype="multipart/form-data">
+                    <div class="file-field input-field">
+                        <h5>ÉÏ´«ÌîÐ´ºÃµÄÄ£°å</h5>
+                        <br>
+                        <div class="btn">
+                            <span>ÎÄ¼þ</span>
+                            <input type="file">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat up-temp" onclick="document.forms[0].submit()">ÉÏ´«</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">È¡Ïû</a>
+
+            </div>
+        </div>
+
         <div class="stu-tbl">
             <table class="striped">
                 <thead>
                 <tr>
-                    <th>ç¼–å·</th>
-                    <th>åå­—</th>
-                    <th>å·²ç»™åˆ†æ•°</th>
-                    <th>ä¿®æ”¹åˆ†æ•°</th>
+                    <th>±àºÅ</th>
+                    <th>Ãû×Ö</th>
+                    <th>ÒÑ¸ø·ÖÊý</th>
+                    <th>ÐÞ¸Ä·ÖÊý</th>
                     <th></th>
                 </tr>
                 </thead>

@@ -126,12 +126,39 @@ public class xlsController {
 		//importGradeXls("E:\\workspace\\mooc.1\\i1.xls");
 		
 	}
+	
+	@RequestMapping(value="/presentUser",method=RequestMethod.GET)
+	public @ResponseBody String presentUser(){
+		System.out.println(".........................");
+		//exportUserXls("E:\\workspace\\mooc.1\\z.xls",getAllUser());
+		//importUserXls("E:\\workspace\\mooc.1\\i.xls");
+
+		//exportGradeXls("E:\\workspace\\mooc.1\\z1.xls",getAllGrade());
+		//importGradeXls("E:\\workspace\\mooc.1\\i1.xls");
+		System.out.println("{name:"+prevUserFile+"}");
+		return "{name:\""+prevUserFile+"\"}";
+	}
+	
+	@RequestMapping(value="/presentGrade",method=RequestMethod.GET)
+	public @ResponseBody String presentGrade(){
+		//exportUserXls("E:\\workspace\\mooc.1\\z.xls",getAllUser());
+		//importUserXls("E:\\workspace\\mooc.1\\i.xls");
+
+		//exportGradeXls("E:\\workspace\\mooc.1\\z1.xls",getAllGrade());
+		//importGradeXls("E:\\workspace\\mooc.1\\i1.xls");
+		return "{name:"+prevGradeFile+"}";
+	}
+	
 	@RequestMapping(value="/exportUser",method=RequestMethod.GET)
 	public ResponseEntity<byte[]> exportUserXls(HttpServletRequest request,HttpServletResponse response){//String path,List<User> list
 		try {
 		List<User> list=getAllUser();
 		HttpHeaders headers = new HttpHeaders();
-		String path="E:\\workspace\\mooc.1\\instance.xls";
+		String path="E:\\workspace\\mooc.1\\instanceUser.xls";
+		File tmp = new File(path);
+		if(tmp.exists()){
+			tmp.delete();
+		}
 		//List<User> user = new ArrayList<User>();
         Map<String,Object> beans = new HashMap<String,Object>();
         beans.put("User", list);
@@ -148,116 +175,67 @@ public class xlsController {
 		} 
 	}
 	
-	public void exportGradeTemplate(HttpServletRequest request,HttpServletResponse response){//String path,int course_id,List<User> user
-		String path="";
-		int course_id=Integer.parseInt(request.getParameter("course_id"));
+	@RequestMapping(value="/exportGradeTemplate",method=RequestMethod.GET)
+	public ResponseEntity<byte[]> exportGradeTemplate(HttpServletRequest request,HttpServletResponse response){//String path,int course_id,List<User> user
+		try {
+		HttpHeaders headers = new HttpHeaders();
+		String path="E:\\workspace\\mooc.1\\ExpGradeTemplate.xls";
 		Session session=HibernateUtil.openSession();
 		session.beginTransaction();
 		List<Group> user=session.createQuery("from Group").list();
+		File tmp = new File(path);
+		if(tmp.exists()){
+			tmp.delete();
+		}
 		List<tmp> exp=new ArrayList<tmp>();
 		for(int i=0;i<user.size();i++){
 			tmp rua=new tmp(user.get(i).getId());
 			exp.add(rua);
 		}
         Map<String,Object> beans = new HashMap<String,Object>();
-        beans.put("tmp", exp);
-        for(int i=0;i<beans.size();i++){
-        System.out.print(beans.get(i)+" ");}
+        beans.put("tmp", user);
         XLSTransformer transformer = new XLSTransformer();
-        try {
-			transformer.transformXLS("E:\\workspace\\mooc.1\\Implement_template.xls", beans, path);//template.xls为输出xls的模版，待修改
+        transformer.transformXLS("E:\\workspace\\mooc.1\\Implement_template.xls", beans, path);//template.xls为输出xls的模版，待修改
+        File file=new File(path);  
+        String fileName=new String("你好.xlsx".getBytes("UTF-8"),"iso-8859-1");//为了解决中文名称乱码问题  
+        headers.setContentDispositionFormData("attachment", fileName);   
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);   
+        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED); 
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		} 
 	}
 	
-	public void exportGradeXls(HttpServletRequest request,HttpServletResponse response){//String path,List<Grade> list
-		String path=request.getParameter("path");
+	@RequestMapping(value="/exportGrade",method=RequestMethod.GET)
+	public ResponseEntity<byte[]> exportGradeXls(HttpServletRequest request,HttpServletResponse response){//String path,List<Grade> list
+		try{
+			String path="E:\\workspace\\mooc.1\\instanceGrade.xls";
+		HttpHeaders headers = new HttpHeaders();
+		File lot = new File(path);
+		if(lot.exists()){
+			lot.delete();
+		}
 		List<Grade> list=getAllGrade();
         Map<String,Object> beans = new HashMap<String,Object>();
         beans.put("Grade", list);
         for(int i=0;i<beans.size();i++){
         System.out.print(beans.get(i)+" ");}
         XLSTransformer transformer = new XLSTransformer();
-        try {
-			transformer.transformXLS("E:\\workspace\\mooc.1\\Grade_template.xls", beans, path);//template.xls为输出xls的模版，待修改
+        transformer.transformXLS("E:\\workspace\\mooc.1\\Grade_template.xls", beans, path);//template.xls为输出xls的模版，待修改
+        File file=new File(path);  
+        String fileName=new String("你好.xlsx".getBytes("UTF-8"),"iso-8859-1");//为了解决中文名称乱码问题  
+        headers.setContentDispositionFormData("attachment", fileName);   
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);   
+        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED); 
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null; 
 		} 
 
 	}
 	
-	@RequestMapping(value="/testUp")
-	public String up(Model model)
-	{
-		return null;
-	}
-	
-	@RequestMapping(value="/team-stu")
-	public String stu(Model model)
-	{
-		return null;
-	}
-	
-	@RequestMapping(value="/index")
-	public String index(Model model)
-	{
-		return null;
-	}
-	
-	@RequestMapping(value="/login")
-	public String login(Model model)
-	{
-		return null;
-	}
-	
-	@RequestMapping(value="/tc-cs")
-	public String cs(Model model)
-	{
-		return null;
-	}
-	
-	@RequestMapping(value="/tc-hw")
-	public String hw(Model model)
-	{
-		return null;
-	}
-	
-	@RequestMapping(value="/tc-src")
-	public String src(Model model)
-	{
-		return null;
-	}
-	
-	@RequestMapping(value="/tc-tm")
-	public String tm(Model model)
-	{
-		return null;
-	}
-	
-	@RequestMapping(value="/tc-ci")
-	public String ci(Model model)
-	{
-		return null;
-	}
-	
-	@RequestMapping(value="/tc-mk")
-	public String mk(Model model)
-	{
-		return null;
-	}
-	
-	@RequestMapping(value="/tc-od")
-	public String od(Model model)
-	{
-		return null;
-	}
-	
-	@RequestMapping(value="/dn-account")
-	public String account(Model model)
-	{
-		return null;
-	}
+
 	
 	
 	
@@ -363,6 +341,7 @@ public class xlsController {
                    System.out.println(value);//根据表格格式确定数据
  //                  saveUser(val[0],val[1],val[2],val[3],val[4]);
                    //System.out.println(val[0]+" "+val[1]+" "+val[2]+" "+val[3]+" "+val[4]);//根据表格格式确定数据
+                   if(val[0]!=null&val[1]!=null&val[2]!=null&val[3]!=null&val[3]!=null){
                    if(val[2].equals("男")){
                 	   val[2]="1";
                    }else if(val[2].equals("女")){
@@ -383,20 +362,22 @@ public class xlsController {
                    java.sql.Statement stmt = conn.createStatement(); //创建Statement对象
                    System.out.println("成功连接到数据库！");
 
-                   String sql = "insert into user values"+"("+"\""+val[0]+"\",\""+val[3]+"\",\""+val[4]+"\",\""+val[2]+"\",\""+val[1]+"\")";    //要执行的SQL
+                   String sql = "insert into user values"+"("+"\""+val[0]+"\",\""+val[3]+"\",\""+val[4]+"\",\""+val[2]+"\",\""+val[1]+"\") on duplicate key update set Password="+val[3]+" Character="+val[4]+" Gender="+val[2]+" Name="+val[1];    //要执行的SQL
                    System.out.println(sql);
                    stmt.executeUpdate(sql);//创建数据对象
                    System.out.println("****************************************");
                        stmt.close();
-                       conn.close();      
+                       conn.close();     
+                       prevUserFile=file.getOriginalFilename();} 
                    }
 		}
              }catch(Exception e ){
+            	 System.out.println("{name:"+prevUserFile+"}");
             	 e.printStackTrace();
-            	 return "{name:"+prevUserFile+"}";
+            	 return "1{name:"+prevUserFile+"}";
              }
 		prevUserFile=file.getOriginalFilename();
-		return "{name:"+prevGradeFile+"}";
+		return "2{name:"+prevGradeFile+"}";
 	}
 	
 	@RequestMapping(value="/uploadGradeXls",method=RequestMethod.POST)
@@ -442,7 +423,7 @@ public class xlsController {
                    }
                    String[] val = value.split(",");
                    //System.out.println(val[0]+" "+val[1]+" "+val[2]+" "+val[3]);//根据表格格式确定数据
-                   
+                   if(val[0]!=null&val[1]!=null&val[2]!=null&val[3]!=null&val[3]!=null){
                    Class.forName("com.mysql.jdbc.Driver");
                        
                    String url="jdbc:mysql://localhost:3306/rua";    //JDBC的URL    
@@ -452,13 +433,13 @@ public class xlsController {
                    java.sql.Statement stmt = conn.createStatement(); //创建Statement对象
                    System.out.println("成功连接到数据库！");
 
-                   String sql = "insert into grade values"+"("+"\""+val[0]+"\",\""+val[1]+"\")";    //要执行的SQL
+                   String sql = "insert into grade values"+"("+"\""+val[0]+"\",\""+val[1]+"\") on duplicate key update set Mark="+val[1];    //要执行的SQL
                    System.out.println(sql);
                    stmt.executeUpdate(sql);//创建数据对象
                    System.out.println("****************************************");
                        stmt.close();
                        conn.close();
-                       prevGradeFile=file.getOriginalFilename();
+                       prevGradeFile=file.getOriginalFilename();}
                    }
 		}
              }catch(Exception e ){
@@ -488,4 +469,75 @@ public class xlsController {
 			HibernateUtil.closeSession(session);
 		}
 	}*/
+	@RequestMapping(value="/testUp")
+	public String up(Model model)
+	{
+		return null;
+	}
+	
+	@RequestMapping(value="/team-stu")
+	public String stu(Model model)
+	{
+		return null;
+	}
+	
+	@RequestMapping(value="/index")
+	public String index(Model model)
+	{
+		return null;
+	}
+	
+	@RequestMapping(value="/login")
+	public String login(Model model)
+	{
+		return null;
+	}
+	
+	@RequestMapping(value="/tc-cs")
+	public String cs(Model model)
+	{
+		return null;
+	}
+	
+	@RequestMapping(value="/tc-hw")
+	public String hw(Model model)
+	{
+		return null;
+	}
+	
+	@RequestMapping(value="/tc-src")
+	public String src(Model model)
+	{
+		return null;
+	}
+	
+	@RequestMapping(value="/tc-tm")
+	public String tm(Model model)
+	{
+		return null;
+	}
+	
+	@RequestMapping(value="/tc-ci")
+	public String ci(Model model)
+	{
+		return null;
+	}
+	
+	@RequestMapping(value="/tc-mk")
+	public String mk(Model model)
+	{
+		return null;
+	}
+	
+	@RequestMapping(value="/tc-od")
+	public String od(Model model)
+	{
+		return null;
+	}
+	
+	@RequestMapping(value="/dn-account")
+	public String account(Model model)
+	{
+		return null;
+	}
 }

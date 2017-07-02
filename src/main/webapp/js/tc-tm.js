@@ -7,55 +7,58 @@ $(function(){
 	var url = {
 	        tmapp: "/mooc/tc-getG",
 	        tminfo: "/mooc/tc-getAcc",
-	        tmdel:"/mooc/tc-delG"
+	        tmdel:"/mooc/tc-delG",
+	       tmmanage:"/mooc/tc-manageG"
 	    };
 	   
 
 	    
 
-	 $('.tm-app').on('click','.app-pass',function () {
-	        var _this = this;
-	        var newbutton = '<a class="waves-effect waves-light btn tm-edit">调整团队</a> <a class="waves-effect waves-light btn red tm-del">解散团队</a>';
+	$('.tm-app').on('click', '.app-pass', function () {
+        var _this = this;
+        var newbutton = '<a class="waves-effect waves-light btn tm-edit">调整团队</a> <a class="waves-effect waves-light btn red tm-del">解散团队</a>';
 
-	        var li = $(_this).parent().parent();
-	        var div = $(_this).parent();
-	        $(div).append(newbutton);
+        var li = $(_this).parent().parent();
+        var div = $(_this).parent();
+        $(div).append(newbutton);
 
-	        var divbro = $(div).prev();
-	        var divspan = $(divbro).children('span');
+        var divbro = $(div).prev();
+        var divspan = $(divbro).children('.badge')
 
-	        // $(divspan).remove();
-	        $(divbro).append('<span class="badge cyan new" data-badge-caption="已审核"></span>');
+        $(divspan).remove();
+        $(divbro).append('<span class="badge cyan new" data-badge-caption="已审核"></span>');
 
-	        $('.show-tm').append(li);
-	        $(_this).next().remove();
-	        $(_this).remove();
+        $('.show-tm').append(li);
+        $(_this).next().remove();
+        $(_this).remove();
 
-	        var params={
-	            name:teamname,
-	            status:1
-	        };
+        var teamname = $($(li).find('.collapsible-header')).find('.tm-name').text();
+        var params = {
+            name: teamname,
+            status: 1
+        };
 
-	        $.post(url.tmapp,params,function () {
-	            console.log('accepted');
-	        });
-	    });
+        $.post(url.tmmanage, params, function () {
+            console.log('accepted');
+        });
+    });
 
-	    $('.tm-app').on('click','.app-reject',function () {
-	        var _this = this;
-	        var li = $(_this).parent().parent();
-	        $(li).css('display', 'none');
+    $('.tm-app').on('click', '.app-reject', function () {
+        var _this = this;
+        var li = $(_this).parent().parent();
+        $(li).css('display', 'none');
 
-	        var teamname=$(li).find('tm-name').text();
-	        var params={
-	            name:teamname,
-	            status:0
-	        };
+        var teamname = $(li).find('.tm-name').text();
+        var params = {
+            name: teamname,
+            status: 0
+        };
 
-	        $.post(url.tmapp,params,function () {
-	            console.log('rejected');
-	        });
-	    });
+        $.post(url.tmmanage, params, function () {
+            console.log('rejected');
+        });
+    });
+
 
 	    /*$('.tm-del').on('click', function () {
 	        var _this = this;
