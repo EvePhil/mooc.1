@@ -111,15 +111,28 @@ $(function () {
         }
     })
 
-    $('.down-temp').click(function () {
+    /*$('.down-temp').click(function () {
         $.get(url.getTemp,function () {
             Materialize.toast('模板下载成功', 4000);
         })
+        $.ajax({
+            	type:"GET",
+            	url:url.getTemp,
+            
+            	success:function(){
+            		Materialize.toast('打分成功', 4000);
+                  
+            	},
+            	error:function(){
+            		Materialize.toast('打分失败', 4000);
+                  
+            	}
+            })
     });
     $('.down-grade').click(function () {
         $.get(url.getGradexls,function () {
             Materialize.toast('成绩单下载成功', 4000);
         })
-    });
+    });*/
     
 })
