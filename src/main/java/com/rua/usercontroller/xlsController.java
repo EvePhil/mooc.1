@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -23,6 +24,10 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -117,23 +122,30 @@ public class xlsController {
 		//exportGradeXls("E:\\workspace\\mooc.1\\z1.xls",getAllGrade());
 		//importGradeXls("E:\\workspace\\mooc.1\\i1.xls");
 	}
-	public void exportUserXls(HttpServletRequest request,HttpServletResponse response){//String path,List<User> list
-		String path=request.getParameter("path");
+	@RequestMapping(value="/exportUser",method=RequestMethod.GET)
+	public ResponseEntity<byte[]> exportUserXls(HttpServletRequest request,HttpServletResponse response){//String path,List<User> list
+		try {
 		List<User> list=getAllUser();
+		HttpHeaders headers = new HttpHeaders();   
+		String path="E:\\workspace\\mooc.1\\instance.xls";
 		//List<User> user = new ArrayList<User>();
         Map<String,Object> beans = new HashMap<String,Object>();
         beans.put("User", list);
         XLSTransformer transformer = new XLSTransformer();
-        try {
 			transformer.transformXLS("E:\\workspace\\mooc.1\\User_template.xls", beans, path);//template.xls为输出xls的模版，待修改
-		} catch (Exception e) {
+			 File file=new File(path);  
+	        String fileName=new String("你好.xlsx".getBytes("UTF-8"),"iso-8859-1");//为了解决中文名称乱码问题  
+	        headers.setContentDispositionFormData("attachment", fileName);   
+	        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);   
+	        return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED); 
+        } catch (Exception e) {
 			e.printStackTrace();
+			return null;  
 		} 
-
 	}
 	
 	public void exportGradeTemplate(HttpServletRequest request,HttpServletResponse response){//String path,int course_id,List<User> user
-		String path=request.getParameter("path");
+		String path="";
 		int course_id=Integer.parseInt(request.getParameter("course_id"));
 		Session session=HibernateUtil.openSession();
 		session.beginTransaction();
