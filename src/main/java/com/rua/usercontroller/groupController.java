@@ -30,6 +30,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mysql.jdbc.Connection;
@@ -125,12 +126,13 @@ public class groupController {
 	}
 	
 	
-	@RequestMapping(value="/tc-delG")
-	public @ResponseBody String deleteGroup(@RequestBody String request){//int group_id
+	@RequestMapping(value="/tc-delG",method=RequestMethod.POST)
+	public @ResponseBody String deleteGroup(@RequestParam("name") String name){//int group_id
 		Session session= HibernateUtil.factory.openSession();
+		//System.out.println(request);
 		JSONObject json=new JSONObject(); 
-		String name=JSONObject.fromObject(request).get("name").toString();
-		System.out.println(JSONObject.fromObject(request));
+		//String name=JSONObject.fromObject(request).get("name").toString();
+		//System.out.println(JSONObject.fromObject(request));
 		//String group_id=request.getParameter("group_id");
 		//String name=request.getParameter("name");
 		try{

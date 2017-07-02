@@ -19,52 +19,52 @@
             <a href="#!" class="brand-logo">SEPS</a>
             <ul class="right hide-on-med-and-down">
                 <!-- Dropdown Trigger -->
-                <li><a class="dropdown-button" href="#!" >鐧� 鍑�</a></li>
+                <li><a class="dropdown-button" href="#!" >登 出</a></li>
             </ul>
         </div>
     </nav>
 </div>
 <div class="content">
     <ul id="nav-mobile" class="side-nav fixed" style="width: 250px;transform: translateX(0%);">
-        <li id="courses" class="side-bar"><a class="waves-effect waves-teal" href="/mooc/index.html">璇剧▼绠＄悊</a></li>
-        <li id="sources" class="side-bar"><a class="waves-effect waves-teal" href="/mooc/tc-src.html">璧勬簮绠＄悊</a></li>
-        <li id="homework" class="side-bar baractive"><a class="waves-effect waves-teal" href="/mooc/tc-hw.html">浣滀笟绠＄悊</a></li>
-        <li id="teamwork " class="side-bar"><a class="waves-effect waves-teal" href="/mooc/tc-tm.html">鍥㈤槦绠＄悊</a></li>
-        <li id="grade" class="side-bar"><a class="waves-effect waves-teal" href="#">鎴愮哗鐧昏</a></li>
-        <li id="signin" class="side-bar"><a class="waves-effect waves-teal" href="#">绛惧埌缁熻</a></li>
-        <li id="olddata" class="side-bar"><a class="waves-effect waves-teal" href="#">浠ュ線鏁版嵁</a></li>
-        <li id="communication" class="side-bar"><a class="waves-effect waves-teal" href="#">甯堢敓浜ゆ祦</a></li>
+        <li id="courses" class="side-bar"><a class="waves-effect waves-teal" href="/index.html">课程管理</a></li>
+        <li id="sources" class="side-bar"><a class="waves-effect waves-teal" href="/tc-src.html">资源管理</a></li>
+        <li id="homework" class="side-bar baractive"><a class="waves-effect waves-teal" href="/tc-hw.html">作业管理</a></li>
+        <li id="teamwork " class="side-bar"><a class="waves-effect waves-teal" href="/tc-tm.html">团队管理</a></li>
+        <li id="grade" class="side-bar"><a class="waves-effect waves-teal" href="/tc-mk.html">成绩登记</a></li>
+        <li id="signin" class="side-bar"><a class="waves-effect waves-teal" href="/tc-ci.html">签到统计</a></li>
+        <li id="olddata" class="side-bar"><a class="waves-effect waves-teal" href="/tc-od.html">以往数据</a></li>
+        <li id="communication" class="side-bar"><a class="waves-effect waves-teal" href="#">师生交流</a></li>
     </ul>
 </div>
 <main>
     <div class=" row right-content">
         <div class="container1">
             <div class="toolbox">
-                <a class="waves-effect waves-light btn choosesrc">鍏ㄩ��</a>
-                <a class="waves-effect waves-light btn choosenot">鍙嶉��</a>
-                <a class="waves-effect waves-light btn publishsrc" href="#modal1">鍙戝竷鏂颁綔涓�</a>
-                <a class="waves-effect waves-light btn downloasrc">鎵归噺涓嬭浇</a>
-                <a class="waves-effect waves-light btn deletesrc red hw-del">鍒犻櫎</a>
+                <a class="waves-effect waves-light btn choosesrc">全选</a>
+                <a class="waves-effect waves-light btn choosenot">反选</a>
+                <a class="waves-effect waves-light btn publishsrc" href="#modal1">发布新作业</a>
+                <a class="waves-effect waves-light btn downloasrc">批量下载</a>
+                <a class="waves-effect waves-light btn deletesrc red hw-del">删除</a>
 
 
             </div>
             <div id="modal1" class="modal">
-                <div class="modal-content">
+                <div class="modal-content drag-box" id="drag-box">
                     <div class="row">
                         <form class="col s12">
                             <div class="row">
                                 <div class="input-field col s6">
                                     <input  id="hwheadline" type="text" class="validate">
-                                    <label for="hwheadline">鏍囬</label>
+                                    <label for="hwheadline">标题</label>
                                 </div>
                                 <div class="input-field col s12">
                                     <input  type="text" id="hwcontent" class="validate">
-                                    <label for="hwcontent">鏂囧瓧璇存槑</label>
+                                    <label for="hwcontent">文字说明</label>
                                 </div>
                             </div>
                             <div class="file-field input-field">
                                 <div class="btn">
-                                    <span>鏂囦欢</span>
+                                    <span>文件</span>
                                     <input type="file" multiple>
                                 </div>
                                 <div class="file-path-wrapper">
@@ -77,8 +77,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hw-public">鍙戝竷</a>
-                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">鍙栨秷</a>
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat hw-public">发布</a>
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">取消</a>
                 </div>
             </div>
             <br>
@@ -96,18 +96,26 @@
                                         </p>
                                     </form>
                                 </div>
-                                <i class="material-icons">filter_drama</i>绗竴娆′綔涓�
+                                <i class="material-icons">filter_drama</i>第一次作业
                                 <i class="material-icons text-black right">play_for_work</i>
                             </div>
                             <div class="collapsible-body">
-                                <span>浣滀笟鎻忚堪鏄敱鍗曚釜浣滀笟銆佸凡鍚姩鐨勪换鍔℃垨 WTO 涓绘搷浣滀互鍙婂唴閮ㄥ厛琛屼綔涓氬噯澶囧拰/鎴栨墜鍔ㄥ噯澶囨搷浣滄瀯鎴愮殑搴旂敤绋嬪簭銆備綔涓氭弿杩扮殑鍚嶇О灏嗚嚜鍔ㄨ缃负涓庝富鎿嶄綔鐩稿悓鐨勫悕绉般��
-濡傛灉搴旂敤绋嬪簭婊¤冻杩欎簺闄愬埗锛岄偅涔堝彲浠ヤ娇鐢ㄢ�滀綔涓氭弿杩扳�濋潰鏉匡紝璇ラ潰鏉块�氳繃瀵规鍦ㄥ垱寤虹殑搴旂敤绋嬪簭杩涜涓�浜涘亣璁撅紝灏嗏�滃簲鐢ㄧ▼搴忔弿杩扳�濋潰鏉跨殑澶у鏁板姛鑳藉帇缂╁埌涓�涓潰鏉裤��
-閫氳繃鍦ㄤ富鑿滃崟涓緭鍏� 1.8.2 鏉ユ樉绀衡�滃垱寤轰綔涓氣�濋潰鏉裤�傝闈㈡澘鏄剧ず鏉ヨ嚜鍒涘缓鎴栦慨鏀圭殑鍏堝墠浣滀笟鎻忚堪鐨勮缃��</span>
+                                <span>作业描述是由单个作业、已启动的任务或 WTO 主操作以及内部先行作业准备和/或手动准备操作构成的应用程序。作业描述的名称将自动设置为与主操作相同的名称。
+如果应用程序满足这些限制，那么可以使用“作业描述”面板，该面板通过对正在创建的应用程序进行一些假设，将“应用程序描述”面板的大多数功能压缩到一个面板。
+通过在主菜单中输入 1.8.2 来显示“创建作业”面板。该面板显示来自创建或修改的先前作业描述的设置。</span>
                                 <ul class="collection">
-                                    <li class="collection-item">鍥㈤槦#1</li>
-                                    <li class="collection-item">鍥㈤槦#2</li>
-                                    <li class="collection-item">鍥㈤槦#3</li>
-                                    <li class="collection-item">鍥㈤槦#4</li>
+                                    <li class="collection-item">团队#1
+                                        <i class="material-icons text-black right">play_for_work</i>
+                                    </li>
+                                    <li class="collection-item">团队#2
+                                        <i class="material-icons text-black right">play_for_work</i>
+                                    </li>
+                                    <li class="collection-item">团队#3
+                                        <i class="material-icons text-black right">play_for_work</i>
+                                    </li>
+                                    <li class="collection-item">团队#4
+                                        <i class="material-icons text-black right">play_for_work</i>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -121,19 +129,27 @@
                                         </p>
                                     </form>
                                 </div>
-                                <i class="material-icons">place</i>绗簩娆′綔涓�
+                                <i class="material-icons">place</i>第二次作业
                                 <i class="material-icons text-black right">play_for_work</i>
 
                             </div>
                             <div class="collapsible-body">
-                                <span>浣滀笟鎻忚堪鏄敱鍗曚釜浣滀笟銆佸凡鍚姩鐨勪换鍔℃垨 WTO 涓绘搷浣滀互鍙婂唴閮ㄥ厛琛屼綔涓氬噯澶囧拰/鎴栨墜鍔ㄥ噯澶囨搷浣滄瀯鎴愮殑搴旂敤绋嬪簭銆備綔涓氭弿杩扮殑鍚嶇О灏嗚嚜鍔ㄨ缃负涓庝富鎿嶄綔鐩稿悓鐨勫悕绉般��
-濡傛灉搴旂敤绋嬪簭婊¤冻杩欎簺闄愬埗锛岄偅涔堝彲浠ヤ娇鐢ㄢ�滀綔涓氭弿杩扳�濋潰鏉匡紝璇ラ潰鏉块�氳繃瀵规鍦ㄥ垱寤虹殑搴旂敤绋嬪簭杩涜涓�浜涘亣璁撅紝灏嗏�滃簲鐢ㄧ▼搴忔弿杩扳�濋潰鏉跨殑澶у鏁板姛鑳藉帇缂╁埌涓�涓潰鏉裤��
-閫氳繃鍦ㄤ富鑿滃崟涓緭鍏� 1.8.2 鏉ユ樉绀衡�滃垱寤轰綔涓氣�濋潰鏉裤�傝闈㈡澘鏄剧ず鏉ヨ嚜鍒涘缓鎴栦慨鏀圭殑鍏堝墠浣滀笟鎻忚堪鐨勮缃��</span>
+                                <span>作业描述是由单个作业、已启动的任务或 WTO 主操作以及内部先行作业准备和/或手动准备操作构成的应用程序。作业描述的名称将自动设置为与主操作相同的名称。
+如果应用程序满足这些限制，那么可以使用“作业描述”面板，该面板通过对正在创建的应用程序进行一些假设，将“应用程序描述”面板的大多数功能压缩到一个面板。
+通过在主菜单中输入 1.8.2 来显示“创建作业”面板。该面板显示来自创建或修改的先前作业描述的设置。</span>
                                 <ul class="collection">
-                                    <li class="collection-item">鍥㈤槦#1</li>
-                                    <li class="collection-item">鍥㈤槦#2</li>
-                                    <li class="collection-item">鍥㈤槦#3</li>
-                                    <li class="collection-item">鍥㈤槦#4</li>
+                                    <li class="collection-item">团队#1
+                                        <i class="material-icons text-black right">play_for_work</i>
+                                    </li>
+                                    <li class="collection-item">团队#2
+                                        <i class="material-icons text-black right">play_for_work</i>
+                                    </li>
+                                    <li class="collection-item">团队#3
+                                        <i class="material-icons text-black right">play_for_work</i>
+                                    </li>
+                                    <li class="collection-item">团队#4
+                                        <i class="material-icons text-black right">play_for_work</i>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -147,18 +163,26 @@
                                         </p>
                                     </form>
                                 </div>
-                                <i class="material-icons">whatshot</i>绗笁娆′綔涓�
+                                <i class="material-icons">whatshot</i>第三次作业
                                 <i class="material-icons text-black right">play_for_work</i>
 
                             </div>
-                            <div class="collapsible-body"><span>浣滀笟鎻忚堪鏄敱鍗曚釜浣滀笟銆佸凡鍚姩鐨勪换鍔℃垨 WTO 涓绘搷浣滀互鍙婂唴閮ㄥ厛琛屼綔涓氬噯澶囧拰/鎴栨墜鍔ㄥ噯澶囨搷浣滄瀯鎴愮殑搴旂敤绋嬪簭銆備綔涓氭弿杩扮殑鍚嶇О灏嗚嚜鍔ㄨ缃负涓庝富鎿嶄綔鐩稿悓鐨勫悕绉般��
-濡傛灉搴旂敤绋嬪簭婊¤冻杩欎簺闄愬埗锛岄偅涔堝彲浠ヤ娇鐢ㄢ�滀綔涓氭弿杩扳�濋潰鏉匡紝璇ラ潰鏉块�氳繃瀵规鍦ㄥ垱寤虹殑搴旂敤绋嬪簭杩涜涓�浜涘亣璁撅紝灏嗏�滃簲鐢ㄧ▼搴忔弿杩扳�濋潰鏉跨殑澶у鏁板姛鑳藉帇缂╁埌涓�涓潰鏉裤��
-閫氳繃鍦ㄤ富鑿滃崟涓緭鍏� 1.8.2 鏉ユ樉绀衡�滃垱寤轰綔涓氣�濋潰鏉裤�傝闈㈡澘鏄剧ず鏉ヨ嚜鍒涘缓鎴栦慨鏀圭殑鍏堝墠浣滀笟鎻忚堪鐨勮缃��</span>
+                            <div class="collapsible-body"><span>作业描述是由单个作业、已启动的任务或 WTO 主操作以及内部先行作业准备和/或手动准备操作构成的应用程序。作业描述的名称将自动设置为与主操作相同的名称。
+如果应用程序满足这些限制，那么可以使用“作业描述”面板，该面板通过对正在创建的应用程序进行一些假设，将“应用程序描述”面板的大多数功能压缩到一个面板。
+通过在主菜单中输入 1.8.2 来显示“创建作业”面板。该面板显示来自创建或修改的先前作业描述的设置。</span>
                                 <ul class="collection">
-                                    <li class="collection-item">鍥㈤槦#1</li>
-                                    <li class="collection-item">鍥㈤槦#2</li>
-                                    <li class="collection-item">鍥㈤槦#3</li>
-                                    <li class="collection-item">鍥㈤槦#4</li>
+                                    <li class="collection-item">团队#1
+                                        <i class="material-icons text-black right">play_for_work</i>
+                                    </li>
+                                    <li class="collection-item">团队#2
+                                        <i class="material-icons text-black right">play_for_work</i>
+                                    </li>
+                                    <li class="collection-item">团队#3
+                                        <i class="material-icons text-black right">play_for_work</i>
+                                    </li>
+                                    <li class="collection-item">团队#4
+                                        <i class="material-icons text-black right">play_for_work</i>
+                                    </li>
                                 </ul></div>
                         </li>
                     </ul>
@@ -176,5 +200,6 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/tc-hw.js"></script>
 
 </html>

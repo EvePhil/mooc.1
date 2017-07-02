@@ -29,7 +29,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.ResultSet;
@@ -54,6 +57,58 @@ import net.sf.jxls.transformer.XLSTransformer;
 
 @Controller
 public class xlsController {
+	/*
+	@RequestMapping(value = "/uploadSRC", method = RequestMethod.POST)
+	public String uploadSRC(ModelMap model,@RequestParam("title") String title,@RequestParam("content") String content, @RequestParam("file") MultipartFile[] files, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ClassNotFoundException, SQLException
+	{
+		
+		String username = request.getSession().getAttribute("sessionusername").toString();
+		User user = searchByHibernate(username);
+		
+		for(int i = 0;i<files.length;i++)
+		{
+			MultipartFile file = files[i];
+
+			//content : 组号
+
+			
+			System.out.println(username+" "+title+" "+content);
+			//读取上传的文件内容
+			InputStream is = file.getInputStream();
+			
+			BufferedReader in = new BufferedReader(new InputStreamReader(is, "utf-8"));
+			   StringBuffer buffer = new StringBuffer();
+			   String line = "";
+			   while ((line = in.readLine()) != null){
+			     buffer.append(line);
+			   }
+			System.out.println(buffer.toString());
+			
+			String fileName =  file.getOriginalFilename();
+			System.out.println(fileName);
+			
+			
+			File wfile=new File("doc/resource/"+content+"/"+fileName); 
+			
+			File fileParent = wfile.getParentFile();
+			if (!fileParent.exists()) {
+				fileParent.mkdirs();
+			}
+			
+			file.transferTo(wfile);
+			
+			
+			
+			Date date= new Date();//创建一个时间对象，获取到当前的时间
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置时间显示格式
+			String strdate = sdf.format(date);
+			
+//			insertByHibernate(fileName, title, user.getId(), strdate, content);
+			insertByJDBC(fileName, title, user.getId(), strdate, content);
+		}
+		return "tc-src";
+	}*/
 	@RequestMapping(value="/a")
 	public void test(){
 		//exportUserXls("E:\\workspace\\mooc.1\\z.xls",getAllUser());
@@ -98,7 +153,6 @@ public class xlsController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-
 	}
 	
 	public void exportGradeXls(HttpServletRequest request,HttpServletResponse response){//String path,List<Grade> list
@@ -159,6 +213,25 @@ public class xlsController {
 		return null;
 	}
 	
+	@RequestMapping(value="/tc-ci")
+	public String ci(Model model)
+	{
+		return null;
+	}
+	
+	@RequestMapping(value="/tc-mk")
+	public String mk(Model model)
+	{
+		return null;
+	}
+	
+	@RequestMapping(value="/tc-od")
+	public String od(Model model)
+	{
+		return null;
+	}
+	
+	
 	
 	public List<User> getAllUser()
 	{
@@ -216,9 +289,11 @@ public class xlsController {
 		return results;
 	}
 	
-	public void importUserXls(HttpServletRequest request,HttpServletResponse response){//String path
+	public void importUserXls(ModelMap model, @RequestParam("file") MultipartFile files, HttpServletRequest request,HttpServletResponse response){//String path
 		String path=request.getParameter("path");
 		try{
+	        MultipartHttpServletRequest multipartRequest  =  (MultipartHttpServletRequest) request;  
+	        MultipartFile file1 = multipartRequest.getFile("iconImg");
 			HSSFWorkbook source=new HSSFWorkbook(new FileInputStream(path));
 			HSSFSheet sheet = source.getSheetAt(0);
 			 int rows = sheet.getPhysicalNumberOfRows();
@@ -264,7 +339,7 @@ public class xlsController {
                    java.sql.Statement stmt = conn.createStatement(); //创建Statement对象
                    System.out.println("成功连接到数据库！");
 
-                   String sql = "insert into user values"+"("+"\""+val[0]+"\",\""+val[1]+"\",\""+val[2]+"\",\""+val[3]+"\",\""+val[4]+"\")";    //要执行的SQL
+                   String sql = "insert into user values"+"("+"\""+val[0]+"\",\""+val[3]+"\",\""+val[4]+"\",\""+val[2]+"\",\""+val[1]+"\")";    //要执行的SQL
                    System.out.println(sql);
                    stmt.executeUpdate(sql);//创建数据对象
                    System.out.println("****************************************");

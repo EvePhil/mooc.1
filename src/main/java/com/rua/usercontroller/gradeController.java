@@ -30,6 +30,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mysql.jdbc.Connection;
@@ -84,16 +85,21 @@ public class gradeController {
 	}
 	
 	@RequestMapping(value="/postGradeG",method=RequestMethod.POST)
-	public @ResponseBody String postGrade(@RequestBody String request){
+	public @ResponseBody String postGrade(@RequestParam("ID") String ID,@RequestParam("grade") String grade){
 		Session session=HibernateUtil.openSession();
 		JSONObject res=new JSONObject();
-		JSONArray req=JSONArray.fromObject(request);
+		//JSONObject req=JSONObject.fromObject(request);
+		//System.out.print(req.toString());
+		System.out.print("ssssssssssssssssssssssssssssssssssss");
 		try{
 			session.beginTransaction();
-			for(int i=0;i<req.size();i++){
-			JSONObject tmp=(JSONObject)req.get(i);
-			session.createQuery("update Grade set mark="+tmp.get("grade")+"where id="+tmp.get("ID"));
-			}
+			//for(int i=0;i<req.size();i++){
+			//JSONObject tmp=req;
+			//session.createQuery("update Grade set mark="+tmp.get("grade")+"where id="+tmp.get("ID"));
+			session.createQuery("update Grade set mark="+grade+"where id="+ID).executeUpdate();
+			session.getTransaction().commit();
+			
+			//}
 		}catch(Exception e){
 			e.printStackTrace();
 			session.close();
@@ -120,7 +126,7 @@ public class gradeController {
 				List<Group> g=session.createQuery("from Group where id="+absence.get(i).getGroupId()).list();
 				tmp.put("stuTeam",g.get(0).getName());
 				
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日");
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				tmp.put("date",formatter.format(absence.get(i).getDate()));
 				res.add(tmp);
 			}
