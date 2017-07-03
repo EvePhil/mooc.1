@@ -219,7 +219,8 @@ var teamQuery = {
         url:'stu-team-mem-score',
         data:{
             stuID:'',
-            memlist:[]
+            memlist:[],
+            count: 0
         }
     }
 };
@@ -411,6 +412,7 @@ function setTeamScore(){
         sum+=parseFloat($(this).val());
         counter++;
     });
+    teamQuery.stuTSS.data.count=counter;
     // $('#team-score-list').css('background-color','#6cf');
     // $('#team-score-list').find('input').css('background-color','red');
     // alert($('#team-score-list').find('input').val());
@@ -422,7 +424,8 @@ function setTeamScore(){
             //TODO:FIX
             teamQuery.stuTSS.data.memlist.push({"memID":$(this).prev().text(),"Score":$(this).val()});
         });
-        $.get(teamQuery.stuTSS.url,teamQuery.data,function (json) {
+       $.get(teamQuery.stuTSS.url,teamQuery.stuTSS.data,function (json) {
+    	   alert(teamQuery.data);
             teamRet.stuTSS = eval('('+json+')').status;
             if(0==teamRet.stuTSS){
                 alert("打分成功！")
@@ -432,7 +435,7 @@ function setTeamScore(){
                 alert("提交失败,请重新提交");
             }
         })
-
+        
     }
 }
 /*

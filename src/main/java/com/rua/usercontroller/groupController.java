@@ -49,6 +49,7 @@ import model.Group;
 import model.GroupMember;
 import model.HibernateUtil;
 import model.Score;
+import model.ScoreId;
 import model.User;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -427,27 +428,30 @@ public class groupController {
 	}
 	
 	@RequestMapping(value="/stu-team-mem-score",method=RequestMethod.GET)
-	@ResponseBody public String setTeamScore(@RequestBody String request){
-		System.out.println(request);
+	@ResponseBody public String setTeamScore(HttpServletRequest request,HttpServletResponse response){
 		Session session=HibernateUtil.openSession();
 		try{
-		JSONObject json=JSONObject.fromObject(request);
-		String id=json.get("stuID").toString();
-			//int id=Integer.parseInt(stuID);
-		JSONArray arr=JSONArray.fromObject("memlist");
+		//JSONObject json=JSONObject.fromObject(request);
+		String id=request.getParameter("stuID");
+		//String id=json.get("stuID").toString();
+		//	//int id=Integer.parseInt(stuID);
+		int count=Integer.parseInt(request.getParameter("count"));
 		session.beginTransaction();
-		for(int i=0;i<arr.size();i++){
-			List<Score> sc=session.createQuery("from Score a where a.id.memId="+id+"and a.id.checkedId="+((JSONObject)arr.get(i)).get("memID")).list();
+		for(int i=0;i<count;i++){
+			String mid=request.getParameter("memlist["+i+"][memID]"),scr=request.getParameter("memlist["+i+"][Score]");
+			List<Score> sc=session.createQuery("from Score a where a.id.memId="+id+"and a.id.checkedId="+request.getParameter("memlist["+i+"][memID]")).list();
 			if(sc.size()==0){
+				System.out.println(mid);
 				Score score=new Score();
-				score.getId().setCheckedId(Integer.parseInt(((JSONObject)arr.get(i)).get("memID").toString()));
+				score.setId(new ScoreId());
+				score.getId().setCheckedId(Integer.parseInt(mid));
 				score.getId().setMemId(Integer.parseInt(id));
 				//score.getId().setMemId(id);
-				score.setScore(Double.parseDouble(((JSONObject)arr.get(i)).get("Score").toString()));
+				score.setScore(Double.parseDouble(scr));
 				session.save(score);
 			}
 			else{
-				session.createQuery("update Score set score="+Double.parseDouble(((JSONObject)arr.get(i)).get("Score").toString())+" where a.id.memId="+id+"and a.id.checkedId="+((JSONObject)arr.get(i)).get("memID"));
+				session.createQuery("update Score a set score="+scr+" where a.id.memId="+id+"and a.id.checkedId="+mid);
 			}
 		}
 		session.getTransaction().commit();
