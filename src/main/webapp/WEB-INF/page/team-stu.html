@@ -25,7 +25,7 @@
             <a href="#!" class="brand-logo">SEPS</a>
             <ul class="right hide-on-med-and-down">
                 <li id="name">wjh</li>
-                <div id="stuID">11</div>
+                <div id="stuID">123</div>
                 <li><a href="#id1">Sass</a></li>
                 <li><a href="#id2">Components</a></li>
                 <!-- Dropdown Trigger -->
@@ -101,6 +101,7 @@
                     <li class="collection-item"><span class="memName">刘春晓</span><span class="memStuID">456</span></li>
                 </ul>
                 <button type="submit" id="submit-team-apply" class="cyan waves-effect waves-light btn" onclick="teamManageSubmit()">提交团队申请</button>
+                <button id="set-team-manage-score"class="waves-effect waves-light cyan btn" onclick="revealTeamScore()">为团队成员打分</button>
             </div>
         </div>
     </div>
@@ -115,9 +116,9 @@
                     <li class="collection-item">刘春晓</li>
                     <li class="collection-item">朱耀华</li>
                 </ul>
+                <button id="set-team-score"class="waves-effect waves-light cyan btn" onclick="revealTeamScore()">为团队成员打分</button>
             </div>
         </div>
-    </div>
     </div>
 </main>
 <!--modal-->
@@ -153,6 +154,18 @@
                 <a href="#" type="submit" class="find-team-apply cyan waves-effect waves-light btn">申请加入</a>
             </div>
         </div>
+    </div>
+</div>
+<div id="team-score" class="modal">
+    <div class="modal-content">
+        <div class="label">为团队成员贡献度打分</div>
+        <ul id="team-score-list" class="collection">
+            <li class="collection-item row"><span class="teamScoreName col m2">刘春晓</span><span class="teamScoreID col m2">123</span> <input class="teamScoreScore col m3" type="range" min="0.4" max="1.2" step="0.2" value="1"><div class="blankspace col m5"></div></li>
+            <li class="collection-item row"><span class="teamScoreName col m2">刘春晓</span><span class="teamScoreID col m2">123</span> <input class="teamScoreScore col m3" type="range" min="0.4" max="1.2" step="0.2" value="1"><div class="blankspace col m5"></div></li>
+            <li class="collection-item row"><span class="teamScoreName col m2">刘春晓</span><span class="teamScoreID col m2">123</span> <input class="teamScoreScore col m3" type="range" min="0.4" max="1.2" step="0.2" value="1"><div class="blankspace col m5"></div></li>
+        </ul>
+        <!--<button type="submit" id="set-team-score-btn" class="waves-effect waves-light cyan btn" onclick="setTeamScore()">确认</button>-->
+        <button type="submit" id="set-team-score-btn" class="waves-effect waves-light cyan btn" onclick="setTeamScore()">确认</button>
     </div>
 </div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

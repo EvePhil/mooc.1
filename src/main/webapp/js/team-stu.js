@@ -50,6 +50,10 @@ function revealTeamCheck() {
     $('#team-check').css('display', 'block');
 }
 
+function revealTeamScore() {
+    getTeamScore();
+    $('#team-score').modal('open');
+}
 
 $('#team-manage-app').on('click','.agree',function () {
     var _this = this;
@@ -67,7 +71,7 @@ $('#team-manage-app').on('click','.agree',function () {
     } else {
         alert('队员审批失败请重新申请');
     }
-})
+});
 /*
 $('.agree').click(function () {
     var _this = this;
@@ -116,7 +120,7 @@ $('.disagree').click(function () {
 */
 $('#find-team-confirm').click(function () {
     getStuTeamList();
-})
+});
 $('.find-team-div').on('click','.find-team-apply',function () {
     var _this=this;
     var _teamName = $(_this).parent().parent().prev().find('.find-team-name').text();
@@ -204,6 +208,19 @@ var teamQuery = {
         data: {
             stuID: '',
         }
+    },
+    stuTSL:{
+        url:'stu-team-score-list',
+        data: {
+            stuID:'',
+        }
+    },
+    stuTSS:{
+        url:'stu-team-mem-score',
+        data:{
+            stuID:'',
+            memlist:[]
+        }
     }
 };
 var teamRet = {
@@ -216,6 +233,8 @@ var teamRet = {
     stuTMA: '',
     stuTMS: '',
     stuTMC: '',
+    stuTSL:'',
+    stuTSL:'',
 }
 
 function setTeamValue() {
@@ -228,6 +247,9 @@ function setTeamValue() {
     teamQuery.stuTMA.data.stuID = Id;
     teamQuery.stuTMC.data.stuID = Id;
     teamQuery.stuTMS.data.stuID = Id;
+    teamQuery.stuTSL.data.stuID = Id;
+    teamQuery.stuTSS.data.stuID = Id;
+
 }
 
 function getStuStatus() {//获取学生状态检查是否已经成为组长或组员
@@ -369,3 +391,58 @@ function teamManegeCheck() {//待实现 查看团队是否已经提交申请
         // if(1==)
     })
 }
+
+function getTeamScore() {
+    $.get(teamQuery.stuTSL.url, teamQuery.stuTSL.data, function (json) {
+        teamRet.stuTSL = eval('('+json+')');
+        var _counter = teamRet.stuTSL.counter;
+        var _arr = teamRet.stuTSL.Arr;
+        for( var p = 0;p<_counter;p++){
+            $('#team-score-list').append('<li class="collection-item row"><span class="teamScoreName col m2">'+_arr[p].Name+'</span><span class="teamScoreID col m2">'+_arr[p].memID+'</span> <input class="teamScoreScore col m3" type="range" min="0.4" max="1.2" step="0.2" value="1"><div class="blankspace col m5"></div></li>');
+        }
+
+    })
+}
+
+function setTeamScore(){
+    var sum=0;
+    var counter=0;
+    $('#team-score-list').find('input').each(function () {
+        sum+=parseFloat($(this).val());
+        counter++;
+    });
+    // $('#team-score-list').css('background-color','#6cf');
+    // $('#team-score-list').find('input').css('background-color','red');
+    // alert($('#team-score-list').find('input').val());
+    // alert(sum);
+    if(sum!=counter){
+        alert('分数之和不符合要求,请重新打分');
+    }else{
+        $('#team-score-list').find('input').each(function () {
+            //TODO:FIX
+            teamQuery.stuTSS.data.memlist.push({"memID":$(this).prev().text(),"Score":$(this).val()});
+        });
+        $.get(teamQuery.stuTSS.url,teamQuery.data,function (json) {
+            teamRet.stuTSS = eval('('+json+')').status;
+            if(0==teamRet.stuTSS){
+                alert("打分成功！")
+                getTeamScore();
+                $('#team-score').modal('close');
+            }else{
+                alert("提交失败,请重新提交");
+            }
+        })
+
+    }
+}
+/*
+$('#set-team-score-btn').click(function () {
+    var _this=this;
+    $(_this).parent().addClass("a");
+    $(_this).parent().find('#team-score-list').addClass("a");
+    $(_this).parent().find('#team-score-list').find('input').addClass('b');
+    $(_this).parent().find('#team-score-list').find('input').each(function () {
+        alert(1);
+    })
+})
+*/

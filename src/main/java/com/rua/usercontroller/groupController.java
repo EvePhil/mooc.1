@@ -48,6 +48,7 @@ import model.Grade;
 import model.Group;
 import model.GroupMember;
 import model.HibernateUtil;
+import model.Score;
 import model.User;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -66,7 +67,7 @@ public class groupController {
 		//deleteGroup(3);
 		//createGroup(4,"gayll");
 		//System.out.println(getMyGroup(4234));
-		//System.out.println(getLeaderGroup(43));
+		System.out.println(getTeamScore("60"));
 	}
 	@RequestMapping(value="/stu-team-create",method=RequestMethod.POST)
 	public @ResponseBody String createGroup(String stuID,String teamName,String teamInfo){//int manager_id,String group_name
@@ -165,11 +166,22 @@ public class groupController {
 		String status=json.get("status").toString();
 		System.out.println(JSONObject.fromObject(request));
 		try{
-			Transaction ts=session.getTransaction();
 			session.beginTransaction();
-			Query query=session.createQuery("update Group set status="+status+" where Name='"+name+"'");
+			Query query=session.createQuery("update Group set status="+status+" where Name='"+name+"'"),
+					sec=session.createQuery("from Group where Name="+name);
+			int id=((Group)(sec.list().get(0))).getId();
 			query.executeUpdate();
 			session.getTransaction().commit();
+			if(status.equals("0")){
+				session.beginTransaction();
+				Query query1=session.createQuery("delete from Group where Name='"+name+"'");
+				Query query2=session.createQuery("delete from GroupMember a where a.id.groupId="+id);
+				Query query3=session.createQuery("delete from Application where groupId="+id);
+				query1.executeUpdate();
+				query2.executeUpdate();
+				query3.executeUpdate();
+				session.getTransaction().commit();
+			}
 			
 		}catch(Exception e){
 			e.printStackTrace();
@@ -204,14 +216,16 @@ public class groupController {
 				Query query1=session.createQuery("from User where id="+group.get(i).getManagerId());
 				List<User> user=query1.list();
 				tmp.put("leader", user.get(0).getName());
-				String member="";
+				String member="",gmember="";
 				Query query2=session.createQuery("from GroupMember a where a.id.groupId="+group.get(i).getId());
 				List<GroupMember> gMember=query2.list();
 				for(int j=0;j<gMember.size();j++){
 					List<User> rua=session.createQuery("from User where Id="+gMember.get(j).getId().getMemberId()).list();
-					member+=(rua.get(0).getName()+" ");
+					if(rua.get(0).getGender()==(byte)0) gmember+=(rua.get(0).getName()+" ");
+					else member+=(rua.get(0).getName()+" ");
 				}
 				tmp.put("member", member.toString());
+				tmp.put("gmember", gmember.toString());
 				array.add(tmp);
 			}
 			json.put("team", array);
@@ -244,14 +258,16 @@ public class groupController {
 				Query query1=session.createQuery("from User where id="+group.get(i).getManagerId());
 				List<User> user=query1.list();
 				tmp.put("leader", user.get(0).getName());
-				String member="";
+				String member="",gmember="";
 				Query query2=session.createQuery("from GroupMember a where a.id.groupId="+group.get(i).getId());
 				List<GroupMember> gMember=query2.list();
 				for(int j=0;j<gMember.size();j++){
 					List<User> rua=session.createQuery("from User where Id="+gMember.get(j).getId().getMemberId()).list();
-					member+=(rua.get(0).getName()+" ");
+					if(rua.get(0).getGender()==(byte)0) gmember+=(rua.get(0).getName()+" ");
+					else member+=(rua.get(0).getName()+" ");
 				}
 				tmp.put("member", member.toString());
+				tmp.put("gmember", gmember.toString());
 				array.add(tmp);
 			}
 			json.put("team", array);
@@ -296,6 +312,12 @@ public class groupController {
 			JSONObject f=new JSONObject();
 			f.put("arr", s);
 			json.put("memList", f);
+			List<Score> sc=session.createQuery("from Score a where a.id.checkedId="+stuID).list();
+			double sum=0;
+			for(int i=0;i<sc.size();i++){
+				sum+=sc.get(i).getScore();
+			}
+			json.put("Score", sc.size()==0?0:sum/(double)sc.size());
 		}catch(Exception e){e.printStackTrace();session.getTransaction().rollback();return null;}
 		finally{
 			session.close();
@@ -330,8 +352,8 @@ public class groupController {
 			for(int i=0;i<gM.size();i++){
 				List<User> user=session.createQuery("from User where Id="+gM.get(i).getId().getMemberId()).list();
 				JSONObject tmp=new JSONObject();
-				tmp.put("memStuID", user.get(0).getId());
-				tmp.put("name", user.get(0).getName());
+				tmp.put("memStuID", user.get(i).getId());
+				tmp.put("name", user.get(i).getName());
 				s.add(tmp);
 			}
 			JSONObject f=new JSONObject();
@@ -350,6 +372,12 @@ public class groupController {
 			w.put("arr", array);
 			json.put("memApp", w);
 			json.put("appCounter", app.size());
+			List<Score> sc=session.createQuery("from Score a where a.id.checkedId="+stuID).list();
+			double sum=0;
+			for(int i=0;i<sc.size();i++){
+				sum+=sc.get(i).getScore();
+			}
+			json.put("Score", sc.size()==0?0:sum/(double)sc.size());
 		}catch(Exception e){e.printStackTrace();session.getTransaction().rollback();return null;}
 		finally{
 			session.close();
@@ -359,4 +387,77 @@ public class groupController {
 		
 	}
 	
+	@RequestMapping(value="/stu-team-score-list",method=RequestMethod.GET)
+	@ResponseBody public String getTeamScore(String stuID){
+		JSONObject json=new JSONObject();
+		Session session= HibernateUtil.factory.openSession();
+		//int stuid=Integer.parseInt(request.getParameter("stuId"));
+		List<GroupMember> gM=new ArrayList<GroupMember>();
+		int count;
+		try{
+			Transaction ts=session.getTransaction();
+			session.beginTransaction();
+			Query query=session.createQuery("from GroupMember a where a.id.memberId="+stuID);
+			gM=query.list();
+			int gId=gM.get(0).getId().getGroupId();
+			JSONArray s=new JSONArray(),array=new JSONArray();
+			gM=session.createQuery("from GroupMember a where a.id.groupId="+gId).list();
+			json.put("counter", gM.size());
+			for(int i=0;i<gM.size();i++){
+				List<User> user=session.createQuery("from User where Id="+gM.get(i).getId().getMemberId()).list();
+				JSONObject tmp=new JSONObject();
+				//tmp.put("memStuID", user.get(0).getId());
+				tmp.put("memID", user.get(0).getId());
+				tmp.put("Name", user.get(0).getName());
+				List<Score> sc=session.createQuery("from Score a where a.id.checkedId="+user.get(0).getId()).list();
+				double sum=0;
+				for(int j=0;j<sc.size();j++){
+					sum+=sc.get(j).getScore();
+				}
+				json.put("Score", sc.size()==0?0:sum/(double)sc.size());
+				s.add(tmp);
+			}
+			json.put("Arr", s);
+		}catch(Exception e){e.printStackTrace();session.getTransaction().rollback();return null;}
+		finally{
+			session.close();
+		}
+		//System.out.println(json.toString());
+		return json.toString();
+	}
+	
+	@RequestMapping(value="/stu-team-mem-score",method=RequestMethod.GET)
+	@ResponseBody public String setTeamScore(@RequestBody String request){
+		System.out.println(request);
+		Session session=HibernateUtil.openSession();
+		try{
+		JSONObject json=JSONObject.fromObject(request);
+		String id=json.get("stuID").toString();
+			//int id=Integer.parseInt(stuID);
+		JSONArray arr=JSONArray.fromObject("memlist");
+		session.beginTransaction();
+		for(int i=0;i<arr.size();i++){
+			List<Score> sc=session.createQuery("from Score a where a.id.memId="+id+"and a.id.checkedId="+((JSONObject)arr.get(i)).get("memID")).list();
+			if(sc.size()==0){
+				Score score=new Score();
+				score.getId().setCheckedId(Integer.parseInt(((JSONObject)arr.get(i)).get("memID").toString()));
+				score.getId().setMemId(Integer.parseInt(id));
+				//score.getId().setMemId(id);
+				score.setScore(Double.parseDouble(((JSONObject)arr.get(i)).get("Score").toString()));
+				session.save(score);
+			}
+			else{
+				session.createQuery("update Score set score="+Double.parseDouble(((JSONObject)arr.get(i)).get("Score").toString())+" where a.id.memId="+id+"and a.id.checkedId="+((JSONObject)arr.get(i)).get("memID"));
+			}
+		}
+		session.getTransaction().commit();
+		}catch(Exception e){
+			e.printStackTrace();
+			session.getTransaction().rollback();
+			return "{status:1}";}
+		finally{
+			session.close();
+		}
+		return "{status:0}";
+	}
 }

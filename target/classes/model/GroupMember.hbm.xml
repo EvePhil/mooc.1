@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 2017-7-1 16:01:01 by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-7-3 11:58:05 by Hibernate Tools 5.2.3.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class catalog="rua" dynamic-insert="false" dynamic-update="false" mutable="true" name="model.GroupMember" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="group_member">
         <composite-id class="model.GroupMemberId" mapped="false" name="id" unsaved-value="undefined">
-            <key-property name="groupId" type="int">
-                <column name="Group_id"/>
-            </key-property>
             <key-property name="memberId" type="int">
                 <column name="Member_id"/>
+            </key-property>
+            <key-property name="groupId" type="int">
+                <column name="Group_id"/>
             </key-property>
         </composite-id>
     </class>
