@@ -121,13 +121,13 @@ public class gradeController {
 			List<Absence> absence=session.createQuery("from Absence").list();
 			for(int i=0;i<absence.size();i++){
 				JSONObject tmp=new JSONObject();
-				tmp.put("stuID",absence.get(i).getId());
+				tmp.put("stuID",absence.get(i).getId().getId());
 				tmp.put("stuName",absence.get(i).getStuName());
 				List<Group> g=session.createQuery("from Group where id="+absence.get(i).getGroupId()).list();
 				tmp.put("stuTeam",g.get(0).getName());
 				
 				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-				tmp.put("date",formatter.format(absence.get(i).getDate()));
+				tmp.put("date",formatter.format(absence.get(i).getId().getDate()));
 				res.add(tmp);
 			}
 		}catch(Exception e){

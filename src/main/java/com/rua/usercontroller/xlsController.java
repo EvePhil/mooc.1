@@ -187,11 +187,11 @@ public class xlsController {
 		if(tmp.exists()){
 			tmp.delete();
 		}
-		List<tmp> exp=new ArrayList<tmp>();
+		/*List<tmp> exp=new ArrayList<tmp>();
 		for(int i=0;i<user.size();i++){
 			tmp rua=new tmp(user.get(i).getId());
 			exp.add(rua);
-		}
+		}*/
         Map<String,Object> beans = new HashMap<String,Object>();
         beans.put("tmp", user);
         XLSTransformer transformer = new XLSTransformer();

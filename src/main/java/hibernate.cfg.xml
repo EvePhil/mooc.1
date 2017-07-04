@@ -16,6 +16,7 @@
         <mapping resource="model/Text.hbm.xml"/>
         <mapping resource="model/Upload.hbm.xml"/>
         <mapping resource="model/Score.hbm.xml"/>
+        <mapping resource="model/Attendance.hbm.xml"/>
         <mapping resource="model/Resources.hbm.xml"/>
         <mapping resource="model/User.hbm.xml"/>
         <mapping resource="model/SubResouces.hbm.xml"/>

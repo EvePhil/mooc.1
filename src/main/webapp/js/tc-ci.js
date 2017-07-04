@@ -5,7 +5,9 @@
 $(function () {
 
     var url = {
-        getAbsent: "/mooc/getAbsent"
+        getAbsent: "/mooc/getAbsent",
+        	cistatus:"/mooc/getAb",
+            postci:"/mooc/postAb"
     };
 
     //TODO
@@ -21,7 +23,7 @@ $(function () {
                 var stuName = jsonParsed[i].stuName;
                 var stuTeam = jsonParsed[i].stuTeam;
                 var record=jsonParsed[i].date;
-
+                
                 var IDtd = $("<td>" + stuID + "</td>");
                 IDtd.appendTo(tr);
                 var nametd = $("<td>" + stuName + "</td>");
@@ -37,6 +39,42 @@ $(function () {
 
         });
     }
+    function checkinStatus() {
+        $.get(url.cistatus,function (json) {
+            var jsonP=eval('(' + json + ')');
+            if(!jsonP.status){
+                $('.beginci').css('display','block');
+                $('.stopci').css('display','none');
+            }else{
+                $('.stopci').css('display','block');
+                $('.beginci').css('display','none');
+            }
+        })
+    }
     loadAbsent();
+    checkinStatus();
+
+    $('.beginci').click(function () {
+        var params={
+            status:1
+        };
+        $.get(url.postci,params,function () {
+            $('.stopci').css('display','block');
+            $('.beginci').css('display','none');
+            Materialize.toast('开始签到！', 4000);
+        })
+    });
+
+    $('.stopci').click(function () {
+        var params={
+            status:0
+        };
+        $.get(url.postci,params,function () {
+        	loadAbsent();
+            $('.beginci').css('display','block');
+            $('.stopci').css('display','none');
+            Materialize.toast('结束签到！', 4000);
+        })
+    });
 
 })
